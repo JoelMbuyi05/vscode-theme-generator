@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VS Code Theme Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!--header-->
+    <header>
+        <h1>VS Code Theme Generator</h1>
+        <p>Create and customize your own VS Code color theme.</p>
+    </header>
+    
+    <main>
+
+        <!--COLOR PICKER SECTION-->
+        <section id="controls">
+            <h2>Theme Settings</h2>
+
+            <div class="color-group">
+                <label>Editor Background</label>
+                <input type="color" id="editorBackground">
+            </div>
+
+            <div class="color-group">
+                <label>Editor Text</label>
+                <input type="color" id="editorForeground">
+            </div>
+
+            <div class="color-group">
+                <label>Keyword color</label>
+                <input type="color" id="keybord">
+            </div>
+
+            <div class="color-group">
+                <label>String Color</label>
+                <input type="color" id="string">
+            </div>
+
+            <div class="color-group">
+                <label>Function Color</label>
+                <input type="color" id="functionColor">
+            </div>
+
+            <div class="color-group">
+                <label>Sidebar Backhround</label>
+                <input type="color" id="sidebarBackground">
+            </div>
+
+            <div class="color-group">
+                <label>Sidebar Text</label>
+                <input type="color" id="sidebarForeground">
+            </div>
+
+        </section>
+
+        <!--PREVIEW SECTION-->
+        <section id="preview">
+            <h2>Live Preview</h2>
+            
+            <div id="editor-preview">
+                <pre>
+                    <span class="keyword">function</span> <span class="function">greet</span>() {
+                    <span class="keyword">return</span> <span class="string">"Hello World"</span>;
+                }
+                </pre>
+            </div>
+        </section>
+
+        <!--ACTION BUTTONS-->
+        <setion id="actions">
+            <button id="saveTheme">Save Theme</button>
+            <button id="loadTheme">Load Theme</button>
+            <button id="exportTheme">Export JSON</button>
+            <button id="randomTheme">Random Theme</button>
+        </setion>
+    </main>
+
+    <script sr="app.js"></script>
+</body>
+</html>
