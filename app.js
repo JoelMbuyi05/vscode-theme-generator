@@ -12,6 +12,9 @@ const editorForeground = document.getElementById("editorForeground");
 const keywordColor = document.getElementById("keyword");
 const stringColor = document.getElementById("sting");
 const functionColor = document.getElementById("functionColor");
+const sidebarBackground = document.getElementById("sidebarBackground");
+const sidebarForeground = document.getElementById("sidebarForeground");
+const sidebarPreview = document.getElementById("sidebar-preview");
 
 // Update Functions
 
@@ -38,4 +41,12 @@ stringColor.addEventListener('input', () => {
 // Function color
 functionColor.addEventListener('input', () => {
     functionEl.style.color = functionColor.value;
+});
+
+sidebarBackground.addEventListerner('input', () => {
+    sidebarPreview.style.background = sidebarBackground.value;
+});
+
+sidebarForeground.addEventListerner('input', () => {
+    sidebarPreview.style.color = sidebarForeground.value;
 });
