@@ -1,52 +1,107 @@
 
 //Select DOM Elements
-const editorPreview = document.getElementById("editor-preview");
-const keywordEl = document.querySelector(".keyword");
-const stringEl = document.querySelector(".string");
-const functionEl = document.querySelector(".function");
-
 
 //Inputs
 const editorBackground = document.getElementById("editorBackground");
 const editorForeground = document.getElementById("editorForeground");
-const keywordColor = document.getElementById("keyword");
-const stringColor = document.getElementById("sting");
+const keywordColor = document.getElementById("keywordColor");
+const stringColor = document.getElementById("stringColor");
 const functionColor = document.getElementById("functionColor");
 const sidebarBackground = document.getElementById("sidebarBackground");
 const sidebarForeground = document.getElementById("sidebarForeground");
+
+// Preview elements
+const editorPreview = document.getElementById("editor-preview");
+const keywordEl = document.querySelector(".keyword");
+const stringEl = document.querySelector(".string");
+const functionEl = document.querySelector(".function");
 const sidebarPreview = document.getElementById("sidebar-preview");
 
-// Update Functions
+//Buttons
+const saveBtn = document.getElementById("saveTheme");
+const loadBtn = document.getElementById("loadTheme");
 
-//Editor background
-editorBackground.addEventListerner('input', () => {
-    editorPreview.style.backgroundColor = editorBackground.value;
-});
 
-//Editor text color
-editorForeground.addEventListener('input', () => {
+// Apply Colors
+
+function applyAllColors() {
+    //Editor area
+    editorPreview.style.background = editorBackground.value;
     editorPreview.style.color = editorForeground.value;
-});
 
-//Keyword color
-keywordColor.addEventListener('input', () => {
     keywordEl.style.color = keywordColor.value;
-});
-
-//String color
-stringColor.addEventListener('input', () => {
     stringEl.style.color = stringColor.value;
-});
-
-// Function color
-functionColor.addEventListener('input', () => {
     functionEl.style.color = functionColor.value;
+
+    //Sidebar
+    if (sidebarPreview) {
+        sidebarPreview.style.background = sidebarBackground.value;
+        sidebarPreview.style.color = sidebarForeground.value;
+    }
+}
+
+// Live updates
+
+const inputs = document.querySelectorAll("#controls input");
+
+inputs.forEach(input => {
+    input.addEventListener("input", applyAllColors);
 });
 
-sidebarBackground.addEventListerner('input', () => {
-    sidebarPreview.style.background = sidebarBackground.value;
+// Save Theme
+
+saveBtn.addEventListener("click", () => {
+    
+    const theme = {
+        editorBackground: editorBackground.value,
+        editorForeground: editorForeground.value,
+        keyword: keywordColor.value,
+        string: stringColor.value,
+        function: functionColor.value,
+        sidebarBackground: sidebarBackground.value,
+        sidebarForeground: sidebarForeground.value
+    };
+
+    localStorage.setItem("vscode-theme", JSON.stringify(theme));
+    alert("Theme saved!");
 });
 
-sidebarForeground.addEventListerner('input', () => {
-    sidebarPreview.style.color = sidebarForeground.value;
+//Load Theme
+
+loadBtn.addEventListener("click", () => {
+    const savedTheme = localStorage.getItem("vscode-theme");
+
+    if (!savedTheme) return alert("No saved theme found!");
+
+    const theme = JSON.parse(savedTheme);
+
+    editorBackground.value = theme.editorBackground;
+    editorForeground.value = theme.editorForeground;
+    keywordColor.value = theme.keyword;
+    stringColor.value = theme.string;
+    functionColor.value = theme.function;
+    sidebarBackground.value = theme.sidebarBackground;
+    sidebarForeground.value = theme.sidebarForeground;
+
+    applyAllColors();
+});
+
+// Auto Load theme
+
+window.addEventListener("DOMContentLoaded", () => {
+    const savedTheme = localStorage.getItem("vscode-theme");
+
+    if (savedTheme) {
+        const theme = JSON.parse(savedTheme);
+
+        editorBackground.value = theme.editorBackground;
+        editorForeground.value = theme.editorForeground;
+        keywordColor.value = theme.keyword;
+        stringColor.value = theme.string;
+        functionColor.value = theme.function;
+        sidebarBackground.value = theme.sidebarBackground;
+        sidebarForeground.value = theme.sidebarForeground;
+
+        applyAllColors();
+    }
 });
