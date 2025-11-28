@@ -1,88 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VS Code Theme Generator</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>VS Code Theme Generator</title>
+
+  <!-- Tailwind CDN (quick start) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="bg-gray-50 text-gray-900 min-h-screen">
 
-    <!--header-->
-    <header>
-        <h1>VS Code Theme Generator</h1>
-        <p>Create and customize your own VS Code color theme.</p>
-    </header>
-    
-    <main>
+  <header class="bg-white shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-6 flex items-center justify-between">
+      <div>
+        <h1 class="text-2xl font-semibold">VS Code Theme Generator</h1>
+        <p class="text-sm text-gray-500">Create, preview, save and export VS Code color themes.</p>
+      </div>
+    </div>
+  </header>
 
-        <!--COLOR PICKER SECTION-->
-        <section id="controls">
-            <h2>Theme Settings</h2>
+  <main class="max-w-6xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
 
-            <div class="color-group">
-                <label>Editor Background</label>
-                <input type="color" id="editorBackground">
-            </div>
+    <!-- Controls -->
+    <section id="controls" class="col-span-1 bg-white rounded-lg shadow p-6">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-medium">Theme Settings</h2>
+        <input id="themeName" type="text" placeholder="Theme name (optional)"
+               class="ml-4 border rounded px-2 py-1 text-sm w-44" />
+      </div>
 
-            <div class="color-group">
-                <label>Editor Text</label>
-                <input type="color" id="editorForeground">
-            </div>
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <label class="text-sm">Editor Background</label>
+          <input type="color" id="editorBackground" value="#1e1e1e">
+        </div>
 
-            <div class="color-group">
-                <label>Keyword color</label>
-                <input type="color" id="keywordColor">
-            </div>
+        <div class="flex items-center justify-between">
+          <label class="text-sm">Editor Text</label>
+          <input type="color" id="editorForeground" value="#d4d4d4">
+        </div>
 
-            <div class="color-group">
-                <label>String Color</label>
-                <input type="color" id="stringColor">
-            </div>
+        <div class="flex items-center justify-between">
+          <label class="text-sm">Keyword Color</label>
+          <input type="color" id="keywordColor" value="#c586c0">
+        </div>
 
-            <div class="color-group">
-                <label>Function Color</label>
-                <input type="color" id="functionColor">
-            </div>
+        <div class="flex items-center justify-between">
+          <label class="text-sm">String Color</label>
+          <input type="color" id="stringColor" value="#ce9178">
+        </div>
 
-            <div class="color-group">
-                <label>Sidebar Backhround</label>
-                <input type="color" id="sidebarBackground">
-            </div>
+        <div class="flex items-center justify-between">
+          <label class="text-sm">Function Color</label>
+          <input type="color" id="functionColor" value="#dcdcaa">
+        </div>
 
-            <div class="color-group">
-                <label>Sidebar Text</label>
-                <input type="color" id="sidebarForeground">
-            </div>
+        <div class="flex items-center justify-between">
+          <label class="text-sm">Sidebar Background</label>
+          <input type="color" id="sidebarBackground" value="#252526">
+        </div>
 
-        </section>
+        <div class="flex items-center justify-between">
+          <label class="text-sm">Sidebar Text</label>
+          <input type="color" id="sidebarForeground" value="#cccccc">
+        </div>
+      </div>
 
-        <!--PREVIEW SECTION-->
-        <section id="preview">
-            <h2>Live Preview</h2>
-            
-            <div id="editor-preview">
-                <pre>
-                    <span class="keyword">function</span> <span class="function">greet</span>() {
-                    <span class="keyword">return</span> <span class="string">"Hello World"</span>;
-                }
-                </pre>
-            </div>
+      <div class="mt-6 flex flex-wrap gap-2">
+        <button id="saveTheme" class="px-3 py-2 bg-blue-600 text-white rounded shadow text-sm">Save Theme</button>
+        <button id="loadTheme" class="px-3 py-2 bg-gray-100 rounded text-sm">Load Selected</button>
+        <button id="exportTheme" class="px-3 py-2 bg-emerald-600 text-white rounded text-sm">Export JSON</button>
+        <label for="importTheme" class="px-3 py-2 bg-yellow-400 text-black rounded text-sm cursor-pointer">Import</label>
+        <input id="importTheme" type="file" accept="application/json" class="hidden" />
+        <button id="randomTheme" class="px-3 py-2 bg-indigo-600 text-white rounded text-sm">Random</button>
+        <button id="resetTheme" class="px-3 py-2 bg-red-500 text-white rounded text-sm ml-auto">Reset</button>
+      </div>
 
-            <div id="sidebar-preview">
-                Sidebar Example
-            </div>
-        </section>
+      <!-- saved themes list -->
+      <div class="mt-6">
+        <h3 class="text-sm font-medium mb-2">Saved Themes</h3>
+        <div id="savedThemes" class="space-y-2 max-h-48 overflow-auto"></div>
+      </div>
+    </section>
 
-        <!--ACTION BUTTONS-->
-        <setion id="actions">
-            <button id="saveTheme">Save Theme</button>
-            <button id="loadTheme">Load Theme</button>
-            <button id="exportTheme">Export JSON</button>
-            <button id="randomTheme">Random Theme</button>
-        </setion>
-    </main>
+    <!-- Preview -->
+    <section id="preview" class="col-span-2 bg-white rounded-lg shadow p-6">
+      <div class="flex items-start gap-6">
+        <!-- Fake editor preview -->
+        <div class="flex-1">
+          <h3 class="text-sm font-medium mb-2">Live Preview</h3>
+          <div id="editor-preview" class="rounded-lg p-4" style="min-height:160px;">
+<pre class="whitespace-pre-wrap"><code><span class="keyword">function</span> <span class="function">greet</span>() {
+    <span class="keyword">const</span> message = <span class="string">"Hello World"</span>;
+    <span class="keyword">return</span> message;
+}</code></pre>
+          </div>
+        </div>
 
-    <script src="app.js"></script>
+        <!-- Sidebar preview -->
+        <div style="width:220px">
+          <h3 class="text-sm font-medium mb-2">Sidebar</h3>
+          <div id="sidebar-preview" class="rounded-lg p-4">
+            <ul class="text-sm space-y-1">
+              <li>src/</li>
+              <li>index.html</li>
+              <li>app.js</li>
+              <li>style.css</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- bottom explanation / theme JSON view -->
+      <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <h4 class="font-medium text-sm mb-2">Theme JSON (preview)</h4>
+          <pre id="themeJson" class="bg-gray-50 rounded p-3 text-xs max-h-56 overflow-auto"></pre>
+        </div>
+        <div>
+          <h4 class="font-medium text-sm mb-2">Tips</h4>
+          <ul class="text-sm list-disc ml-4 space-y-1 text-gray-600">
+            <li>Pick colors on the left — preview updates instantly.</li>
+            <li>Save your favorite themes and export JSON to reuse in VS Code.</li>
+            <li>Use Random to explore combinations, then tweak.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="max-w-6xl mx-auto px-4 py-6 text-xs text-gray-500">
+    Built by Joel Mbuyi • Use the exported JSON in VS Code as a color theme
+  </footer>
+
+  <script src="app.js"></script>
 </body>
 </html>
