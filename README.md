@@ -3,7 +3,7 @@
 The VS Code Theme Generator is a web application that allows users to create customized Visual Studio Code color themes.
 It provides a clean UI, live preview, and built-in exporting features, making it simple to design unique themes without manually editing JSON files.
 
-🛠 Technologies Used
+# 🛠 Technologies Used
 
 * HTML
 * TailwindCSS
@@ -11,7 +11,7 @@ It provides a clean UI, live preview, and built-in exporting features, making it
 * LocalStorage
 * JSON
 
-⭐ Features
+# ⭐ Features
 
 * Color pickers for:
   * Editor background
@@ -33,7 +33,7 @@ It provides a clean UI, live preview, and built-in exporting features, making it
 * Clean UI + Responsive Layout
   Looks good on desktop, tablet, and mobile.
 
-🧪 Process
+# 🧪 Process
 
   The development of the VS Code Theme Generator began with planning the layout and identifying the essential features needed for a smooth theme-building experience. 
   I started by outlining the structure: a simple two-column interface with the color controls on the left and the live preview on the right. Once the layout was clear, 
@@ -50,7 +50,7 @@ It provides a clean UI, live preview, and built-in exporting features, making it
   Throughout the process, I tested each feature thoroughly, fixing issues like null element errors, incorrect color mappings, and JSON formatting problems. Once everything was stable, 
   I refined the UI, improved button interactions, and cleaned up the codebase.  The project was then finalized, version-controlled with Git, and prepared for deployment.
 
-  📚 What I Learned
+#  📚 What I Learned
 
   * Working with TailwindCSS and building UI fast
   * How to use JavaScript DOM manipulation effectively
@@ -60,7 +60,7 @@ It provides a clean UI, live preview, and built-in exporting features, making it
   * Formatting VS Code-compatible JSON themes
   * Writing cleaner JavaScript with reusable functions
 
-🚀 Overall Growth
+# 🚀 Overall Growth
 This project improved your abilities in:
   * Front-end thinking
   * Clean code structure
@@ -70,7 +70,7 @@ This project improved your abilities in:
   * Creating real-world usable tools
   * Saving and exporting dynamic user data
 
-🔧 How It Can Be Improved
+# 🔧 How It Can Be Improved
 
   * Add multiple themes saving (+ theme gallery)
   * Add more color settings (comments, constants, variables, errors, tabs)
@@ -80,12 +80,12 @@ This project improved your abilities in:
   * Add a drag-and-drop VS Code editor mockup
   * Add full keyboard shortcut support
 
-▶️ Running the Project
+# ▶️ Running the Project
 No installation needed.
 
 1. Download the project folder
 2. Open index.html in any browser
 3. Done
 
-🎥 Video Demo
+# 🎥 Video Demo
 
