@@ -89,3 +89,4 @@ No installation needed.
 
 # 🎥 Video Demo
 
+<video src="assets/demo.mp4" controls width="700"></video>
