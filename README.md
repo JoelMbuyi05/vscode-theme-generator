@@ -1,7 +1,6 @@
 # vscode-theme-generator
 
-The VS Code Theme Generator is a web application that allows users to create customized Visual Studio Code color themes.
-It provides a clean UI, live preview, and built-in exporting features, making it simple to design unique themes without manually editing JSON files.
+The VS Code Theme Generator is a web application that enables users to create, customize, and export beautiful Visual Studio Code color themes effortlessly. Design unique themes with a modern UI, live preview, and one-click JSON export—no manual JSON editing required.
 
 # 🛠 Technologies Used
 
@@ -89,5 +88,7 @@ No installation needed.
 
 # 🎥 Video Demo
 
-https://github.com/user-attachments/assets/5fa8ba2a-75eb-46ab-9ff1-aa053ab787d1
+https://github.com/user-attachments/assets/6e7046c7-b9bd-446a-b96c-e1731443f83c
+
+
 
