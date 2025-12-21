@@ -160,66 +160,68 @@
           </div>
 
           <!-- Color Picker Tabs -->
-          <div class="mb-4 flex gap-2 border-b border-blue-900/30">
-            <button class="tab-button active" data-tab="editor">Editor</button>
-            <button class="tab-button" data-tab="syntax">Syntax</button>
-            <button class="tab-button" data-tab="ui">UI</button>
+          <div class="mb-4 border-b border-blue-900/30">
+            <div class="flex gap-1 overflow-x-auto">
+              <button class="tab-button active whitespace-nowrap" data-tab="editor">Editor</button>
+              <button class="tab-button whitespace-nowrap" data-tab="syntax">Syntax</button>
+              <button class="tab-button whitespace-nowrap" data-tab="ui">UI</button>
+            </div>
           </div>
 
           <!-- Editor Colors -->
-          <div id="editor-tab" class="tab-content space-y-4 mb-6">
+          <div id="editor-tab" class="tab-content space-y-3 mb-6">
             <div class="color-picker-row">
-              <label class="text-sm">Background</label>
+              <label class="text-sm font-medium">Background</label>
               <input type="color" id="editorBackground" value="#1e1e1e" class="color-input">
-              <input type="text" id="editorBgHex" readonly class="text-xs bg-slate-800/50 px-2 py-1 rounded w-20">
+              <input type="text" id="editorBgHex" readonly class="text-xs bg-slate-800/50 px-2 py-1 rounded w-16">
             </div>
             <div class="color-picker-row">
-              <label class="text-sm">Foreground</label>
+              <label class="text-sm font-medium">Foreground</label>
               <input type="color" id="editorForeground" value="#d4d4d4" class="color-input">
-              <input type="text" id="editorFgHex" readonly class="text-xs bg-slate-800/50 px-2 py-1 rounded w-20">
+              <input type="text" id="editorFgHex" readonly class="text-xs bg-slate-800/50 px-2 py-1 rounded w-16">
             </div>
           </div>
 
           <!-- Syntax Colors -->
-          <div id="syntax-tab" class="tab-content space-y-4 mb-6 hidden">
+          <div id="syntax-tab" class="tab-content space-y-3 mb-6 hidden">
             <div class="color-picker-row">
-              <label class="text-sm">Keywords</label>
+              <label class="text-sm font-medium">Keywords</label>
               <input type="color" id="keywordColor" value="#c586c0" class="color-input">
-              <input type="text" id="keywordHex" readonly class="text-xs bg-slate-800/50 px-2 py-1 rounded w-20">
+              <input type="text" id="keywordHex" readonly class="text-xs bg-slate-800/50 px-2 py-1 rounded w-16">
             </div>
             <div class="color-picker-row">
-              <label class="text-sm">Strings</label>
+              <label class="text-sm font-medium">Strings</label>
               <input type="color" id="stringColor" value="#ce9178" class="color-input">
-              <input type="text" id="stringHex" readonly class="text-xs bg-slate-800/50 px-2 py-1 rounded w-20">
+              <input type="text" id="stringHex" readonly class="text-xs bg-slate-800/50 px-2 py-1 rounded w-16">
             </div>
             <div class="color-picker-row">
-              <label class="text-sm">Functions</label>
+              <label class="text-sm font-medium">Functions</label>
               <input type="color" id="functionColor" value="#dcdcaa" class="color-input">
-              <input type="text" id="functionHex" readonly class="text-xs bg-slate-800/50 px-2 py-1 rounded w-20">
+              <input type="text" id="functionHex" readonly class="text-xs bg-slate-800/50 px-2 py-1 rounded w-16">
             </div>
             <div class="color-picker-row">
-              <label class="text-sm">Comments</label>
+              <label class="text-sm font-medium">Comments</label>
               <input type="color" id="commentColor" value="#6a9955" class="color-input">
-              <input type="text" id="commentHex" readonly class="text-xs bg-slate-800/50 px-2 py-1 rounded w-20">
+              <input type="text" id="commentHex" readonly class="text-xs bg-slate-800/50 px-2 py-1 rounded w-16">
             </div>
           </div>
 
           <!-- UI Colors -->
-          <div id="ui-tab" class="tab-content space-y-4 mb-6 hidden">
+          <div id="ui-tab" class="tab-content space-y-3 mb-6 hidden">
             <div class="color-picker-row">
-              <label class="text-sm">Sidebar Background</label>
+              <label class="text-sm font-medium">Sidebar BG</label>
               <input type="color" id="sidebarBackground" value="#252526" class="color-input">
-              <input type="text" id="sidebarBgHex" readonly class="text-xs bg-slate-800/50 px-2 py-1 rounded w-20">
+              <input type="text" id="sidebarBgHex" readonly class="text-xs bg-slate-800/50 px-2 py-1 rounded w-16">
             </div>
             <div class="color-picker-row">
-              <label class="text-sm">Sidebar Text</label>
+              <label class="text-sm font-medium">Sidebar Text</label>
               <input type="color" id="sidebarForeground" value="#cccccc" class="color-input">
-              <input type="text" id="sidebarFgHex" readonly class="text-xs bg-slate-800/50 px-2 py-1 rounded w-20">
+              <input type="text" id="sidebarFgHex" readonly class="text-xs bg-slate-800/50 px-2 py-1 rounded w-16">
             </div>
             <div class="color-picker-row">
-              <label class="text-sm">Selection</label>
+              <label class="text-sm font-medium">Selection</label>
               <input type="color" id="selectionColor" value="#264f78" class="color-input">
-              <input type="text" id="selectionHex" readonly class="text-xs bg-slate-800/50 px-2 py-1 rounded w-20">
+              <input type="text" id="selectionHex" readonly class="text-xs bg-slate-800/50 px-2 py-1 rounded w-16">
             </div>
           </div>
 
@@ -343,7 +345,7 @@
   <footer class="border-t border-blue-900/30 glass-effect mt-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-        <p class="text-sm text-gray-400">Built with <span class="text-red-400">❤️</span> by Joel Mbuyi</p>
+        <p class="text-sm text-gray-400">by Joel Mbuyi</p>
         <div class="flex gap-4">
           <a href="https://github.com/JoelMbuyi05" target="_blank" class="text-gray-400 hover:text-blue-400 transition-colors">
             <i class="fab fa-github text-lg"></i>
