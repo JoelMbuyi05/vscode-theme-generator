@@ -88,7 +88,4 @@ No installation needed.
 
 # 🎥 Video Demo
 
-https://github.com/user-attachments/assets/6e7046c7-b9bd-446a-b96c-e1731443f83c
-
-
-
+<video src="assets/demo.mp4" controls width="700"></video>

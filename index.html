@@ -4,137 +4,356 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>VS Code Theme Generator</title>
-
-  <!-- Tailwind CDN (quick start) -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+  <style>
+    * { scroll-behavior: smooth; }
+    
+    body {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0f172a 100%);
+      min-height: 100vh;
+    }
 
-  <link rel="stylesheet" href="style.css">
+    .glass-effect {
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #60a5fa, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .color-input {
+      width: 50px;
+      height: 50px;
+      border-radius: 8px;
+      cursor: pointer;
+      border: 2px solid rgba(59, 130, 246, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .color-input:hover {
+      border-color: rgba(59, 130, 246, 0.8);
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #3b82f6, #06b6d4);
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+    }
+
+    .code-block {
+      background: #1e293b;
+      border-radius: 12px;
+      padding: 24px;
+      font-family: 'Monaco', 'Menlo', monospace;
+      line-height: 1.6;
+      overflow-x: auto;
+    }
+
+    .sidebar-item {
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .sidebar-item:hover {
+      background: rgba(59, 130, 246, 0.2);
+    }
+
+    .theme-card {
+      transition: all 0.3s ease;
+    }
+
+    .theme-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 35px rgba(59, 130, 246, 0.2);
+    }
+
+    .color-picker-row {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 8px;
+      background: rgba(59, 130, 246, 0.05);
+      margin-bottom: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .color-picker-row:hover {
+      background: rgba(59, 130, 246, 0.1);
+    }
+
+    .keyword { font-weight: bold; }
+    .comment { opacity: 0.7; font-style: italic; }
+    
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-slide-in {
+      animation: slideIn 0.5s ease-out;
+    }
+
+    .tab-button {
+      padding: 10px 16px;
+      border: none;
+      background: transparent;
+      color: #94a3b8;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .tab-button.active {
+      color: #60a5fa;
+      border-bottom-color: #60a5fa;
+    }
+  </style>
 </head>
-<body class="bg-gray-50 text-gray-900 min-h-screen">
+<body class="text-white">
 
-  <header class="bg-white shadow-sm">
-    <div class="max-w-6xl mx-auto px-4 py-6 flex items-left justify-between">
-      <div>
-        <h1 class="text-2xl font-semibold">VS Code Theme Generator</h1>
-        <p class="text-sm text-gray-500">Create, preview, save and export VS Code color themes.</p>
+  <!-- Header -->
+  <header class="glass-effect border-b border-blue-900/30 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-3xl sm:text-4xl font-bold gradient-text">VS Code Theme Generator</h1>
+          <p class="text-blue-300/60 text-sm mt-1">Design beautiful themes, export instantly</p>
+        </div>
       </div>
     </div>
   </header>
 
-  <main class="max-w-6xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
 
-    <!-- Controls -->
-    <section id="controls" class="col-span-1 bg-white rounded-lg shadow p-6">
-      <div class="flex items-center justify-between mb-4">
-        <h2 class="text-lg font-medium">Theme Settings</h2>
-        <input id="themeName" type="text" placeholder="Theme name (optional)"
-               class="ml-4 border rounded px-2 py-1 text-sm w-44" />
+      <!-- Left Sidebar - Controls -->
+      <div class="lg:col-span-1">
+        <div class="glass-effect rounded-xl p-6 sticky top-24">
+          <!-- Theme Name -->
+          <div class="mb-6">
+            <label class="block text-sm font-semibold mb-2 text-blue-300">Theme Name</label>
+            <input id="themeName" type="text" placeholder="My Awesome Theme"
+                   class="w-full bg-slate-800/50 border border-blue-500/30 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-blue-400 transition-colors" />
+          </div>
+
+          <!-- Color Picker Tabs -->
+          <div class="mb-4 flex gap-2 border-b border-blue-900/30">
+            <button class="tab-button active" data-tab="editor">Editor</button>
+            <button class="tab-button" data-tab="syntax">Syntax</button>
+            <button class="tab-button" data-tab="ui">UI</button>
+          </div>
+
+          <!-- Editor Colors -->
+          <div id="editor-tab" class="tab-content space-y-4 mb-6">
+            <div class="color-picker-row">
+              <label class="text-sm">Background</label>
+              <input type="color" id="editorBackground" value="#1e1e1e" class="color-input">
+              <input type="text" id="editorBgHex" readonly class="text-xs bg-slate-800/50 px-2 py-1 rounded w-20">
+            </div>
+            <div class="color-picker-row">
+              <label class="text-sm">Foreground</label>
+              <input type="color" id="editorForeground" value="#d4d4d4" class="color-input">
+              <input type="text" id="editorFgHex" readonly class="text-xs bg-slate-800/50 px-2 py-1 rounded w-20">
+            </div>
+          </div>
+
+          <!-- Syntax Colors -->
+          <div id="syntax-tab" class="tab-content space-y-4 mb-6 hidden">
+            <div class="color-picker-row">
+              <label class="text-sm">Keywords</label>
+              <input type="color" id="keywordColor" value="#c586c0" class="color-input">
+              <input type="text" id="keywordHex" readonly class="text-xs bg-slate-800/50 px-2 py-1 rounded w-20">
+            </div>
+            <div class="color-picker-row">
+              <label class="text-sm">Strings</label>
+              <input type="color" id="stringColor" value="#ce9178" class="color-input">
+              <input type="text" id="stringHex" readonly class="text-xs bg-slate-800/50 px-2 py-1 rounded w-20">
+            </div>
+            <div class="color-picker-row">
+              <label class="text-sm">Functions</label>
+              <input type="color" id="functionColor" value="#dcdcaa" class="color-input">
+              <input type="text" id="functionHex" readonly class="text-xs bg-slate-800/50 px-2 py-1 rounded w-20">
+            </div>
+            <div class="color-picker-row">
+              <label class="text-sm">Comments</label>
+              <input type="color" id="commentColor" value="#6a9955" class="color-input">
+              <input type="text" id="commentHex" readonly class="text-xs bg-slate-800/50 px-2 py-1 rounded w-20">
+            </div>
+          </div>
+
+          <!-- UI Colors -->
+          <div id="ui-tab" class="tab-content space-y-4 mb-6 hidden">
+            <div class="color-picker-row">
+              <label class="text-sm">Sidebar Background</label>
+              <input type="color" id="sidebarBackground" value="#252526" class="color-input">
+              <input type="text" id="sidebarBgHex" readonly class="text-xs bg-slate-800/50 px-2 py-1 rounded w-20">
+            </div>
+            <div class="color-picker-row">
+              <label class="text-sm">Sidebar Text</label>
+              <input type="color" id="sidebarForeground" value="#cccccc" class="color-input">
+              <input type="text" id="sidebarFgHex" readonly class="text-xs bg-slate-800/50 px-2 py-1 rounded w-20">
+            </div>
+            <div class="color-picker-row">
+              <label class="text-sm">Selection</label>
+              <input type="color" id="selectionColor" value="#264f78" class="color-input">
+              <input type="text" id="selectionHex" readonly class="text-xs bg-slate-800/50 px-2 py-1 rounded w-20">
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="space-y-2 mb-6">
+            <button id="saveTheme" class="w-full btn-primary text-white py-2 rounded-lg font-semibold text-sm">
+              <i class="fas fa-save mr-2"></i>Save Theme
+            </button>
+            <button id="exportTheme" class="w-full bg-emerald-600/80 hover:bg-emerald-600 text-white py-2 rounded-lg font-semibold text-sm transition-all">
+              <i class="fas fa-download mr-2"></i>Export JSON
+            </button>
+            <button id="randomTheme" class="w-full bg-purple-600/80 hover:bg-purple-600 text-white py-2 rounded-lg font-semibold text-sm transition-all">
+              <i class="fas fa-dice mr-2"></i>Generate Random
+            </button>
+            <button id="resetTheme" class="w-full bg-red-600/80 hover:bg-red-600 text-white py-2 rounded-lg font-semibold text-sm transition-all">
+              <i class="fas fa-redo mr-2"></i>Reset to Default
+            </button>
+            <label for="importTheme" class="w-full block text-center bg-yellow-600/80 hover:bg-yellow-600 text-white py-2 rounded-lg font-semibold text-sm transition-all cursor-pointer">
+              <i class="fas fa-upload mr-2"></i>Import JSON
+            </label>
+            <input id="importTheme" type="file" accept="application/json" class="hidden" />
+          </div>
+
+          <!-- Saved Themes -->
+          <div>
+            <h3 class="font-semibold text-sm mb-3 text-blue-300">Saved Themes</h3>
+            <div id="savedThemes" class="space-y-2 max-h-64 overflow-y-auto">
+              <p class="text-xs text-gray-400">No saved themes yet</p>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="space-y-3">
-        <div class="flex items-center justify-between">
-          <label class="text-sm">Editor Background</label>
-          <input type="color" id="editorBackground" value="#1e1e1e">
-        </div>
+      <!-- Right Content - Preview & JSON -->
+      <div class="lg:col-span-3 space-y-6">
 
-        <div class="flex items-center justify-between">
-          <label class="text-sm">Editor Text</label>
-          <input type="color" id="editorForeground" value="#d4d4d4">
-        </div>
+        <!-- Live Preview -->
+        <div class="glass-effect rounded-xl p-8 animate-slide-in">
+          <div class="flex items-center gap-2 mb-6">
+            <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+            <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+            <span class="text-xs text-gray-400 ml-4">example.js</span>
+          </div>
 
-        <div class="flex items-center justify-between">
-          <label class="text-sm">Keyword Color</label>
-          <input type="color" id="keywordColor" value="#c586c0">
-        </div>
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Code Editor Preview -->
+            <div class="lg:col-span-2">
+              <h3 class="text-xs font-semibold text-blue-300 mb-4 uppercase tracking-wider">Code Preview</h3>
+              <div id="editor-preview" class="code-block text-sm">
+<pre><span class="comment">// Create a beautiful theme</span>
+<span class="keyword">const</span> <span class="function">createTheme</span> = () => {
+  <span class="keyword">const</span> colors = {
+    primary: <span class="string">"#3b82f6"</span>,
+    accent: <span class="string">"#06b6d4"</span>
+  };
+  <span class="keyword">return</span> colors;
+};</pre>
+              </div>
+            </div>
 
-        <div class="flex items-center justify-between">
-          <label class="text-sm">String Color</label>
-          <input type="color" id="stringColor" value="#ce9178">
-        </div>
-
-        <div class="flex items-center justify-between">
-          <label class="text-sm">Function Color</label>
-          <input type="color" id="functionColor" value="#dcdcaa">
-        </div>
-
-        <div class="flex items-center justify-between">
-          <label class="text-sm">Sidebar Background</label>
-          <input type="color" id="sidebarBackground" value="#252526">
-        </div>
-
-        <div class="flex items-center justify-between">
-          <label class="text-sm">Sidebar Text</label>
-          <input type="color" id="sidebarForeground" value="#cccccc">
-        </div>
-      </div>
-
-      <div class="mt-6 flex flex-wrap gap-2">
-        <button id="saveTheme" class="px-3 py-2 bg-blue-600 text-white rounded shadow text-sm">Save Theme</button>
-        <button id="loadTheme" class="px-3 py-2 bg-gray-100 rounded text-sm">Load Selected</button>
-        <button id="exportTheme" class="px-3 py-2 bg-emerald-600 text-white rounded text-sm">Export JSON</button>
-        <label for="importTheme" class="px-3 py-2 bg-yellow-400 text-black rounded text-sm cursor-pointer">Import</label>
-        <input id="importTheme" type="file" accept="application/json" class="hidden" />
-        <button id="randomTheme" class="px-3 py-2 bg-indigo-600 text-white rounded text-sm">Random</button>
-        <button id="resetTheme" class="px-3 py-2 bg-red-500 text-white rounded text-sm ml-auto">Reset</button>
-      </div>
-
-      <!-- saved themes list -->
-      <div class="mt-6">
-        <h3 class="text-sm font-medium mb-2">Saved Themes</h3>
-        <div id="savedThemes" class="space-y-2 max-h-48 overflow-auto"></div>
-      </div>
-    </section>
-
-    <!-- Preview -->
-    <section id="preview" class="col-span-2 bg-white rounded-lg shadow p-6">
-      <div class="flex items-start gap-6">
-        <!-- Fake editor preview -->
-        <div class="flex-1">
-          <h3 class="text-sm font-medium mb-2">Live Preview</h3>
-          <div id="editor-preview" class="rounded-lg p-4" style="min-height:160px;">
-<pre class="whitespace-pre-wrap"><code><span class="keyword">function</span> <span class="function">greet</span>() {
-    <span class="keyword">const</span> message = <span class="string">"Hello World"</span>;
-    <span class="keyword">return</span> message;
-}</code></pre>
+            <!-- Sidebar Preview -->
+            <div>
+              <h3 class="text-xs font-semibold text-blue-300 mb-4 uppercase tracking-wider">Sidebar</h3>
+              <div id="sidebar-preview" class="rounded-lg p-4">
+                <div class="text-xs space-y-1">
+                  <div class="sidebar-item">📁 src/</div>
+                  <div class="sidebar-item" style="padding-left: 24px;">📄 index.html</div>
+                  <div class="sidebar-item" style="padding-left: 24px;">📄 style.css</div>
+                  <div class="sidebar-item" style="padding-left: 24px;">📄 app.js</div>
+                  <div class="sidebar-item">📁 assets/</div>
+                  <div class="sidebar-item">📄 README.md</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- Sidebar preview -->
-        <div style="width:220px">
-          <h3 class="text-sm font-medium mb-2">Sidebar</h3>
-          <div id="sidebar-preview" class="rounded-lg p-4">
-            <ul class="text-sm space-y-1">
-              <li>src/</li>
-              <li>index.html</li>
-              <li>app.js</li>
-              <li>style.css</li>
-            </ul>
+        <!-- JSON Export & Color Palette -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- JSON Output -->
+          <div class="glass-effect rounded-xl p-6">
+            <h3 class="font-semibold text-sm mb-4 text-blue-300">
+              <i class="fas fa-code mr-2"></i>Theme JSON
+            </h3>
+            <pre id="themeJson" class="bg-slate-900/50 rounded-lg p-4 text-xs max-h-64 overflow-auto font-mono whitespace-pre-wrap break-all"></pre>
+            <button id="copyJson" class="w-full mt-3 bg-slate-800/50 hover:bg-slate-800 text-blue-300 py-2 rounded-lg text-sm transition-all">
+              <i class="fas fa-clipboard mr-2"></i>Copy to Clipboard
+            </button>
+          </div>
+
+          <!-- Color Palette -->
+          <div class="glass-effect rounded-xl p-6">
+            <h3 class="font-semibold text-sm mb-4 text-blue-300">
+              <i class="fas fa-palette mr-2"></i>Color Palette
+            </h3>
+            <div id="colorPalette" class="space-y-3 max-h-64 overflow-y-auto">
+              <!-- Dynamically populated -->
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- bottom explanation / theme JSON view -->
-      <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <h4 class="font-medium text-sm mb-2">Theme JSON (preview)</h4>
-          <pre id="themeJson" class="bg-gray-50 rounded p-3 text-xs max-h-56 overflow-auto"></pre>
-        </div>
-        <div>
-          <h4 class="font-medium text-sm mb-2">Tips</h4>
-          <ul class="text-sm list-disc ml-4 space-y-1 text-gray-600">
-            <li>Pick colors on the left — preview updates instantly.</li>
-            <li>Save your favorite themes and export JSON to reuse in VS Code.</li>
-            <li>Use Random to explore combinations, then tweak.</li>
+        <!-- Tips Section -->
+        <div class="glass-effect rounded-xl p-6">
+          <h3 class="font-semibold text-sm mb-4 text-blue-300">
+            <i class="fas fa-lightbulb mr-2"></i>Pro Tips
+          </h3>
+          <ul class="space-y-2 text-sm text-gray-300">
+            <li>✨ Use the <strong>Random</strong> button to explore unique color combinations</li>
+            <li>💾 <strong>Save</strong> themes locally and load them anytime</li>
+            <li>📥 <strong>Import</strong> other VS Code themes and customize them further</li>
+            <li>📤 <strong>Export</strong> your theme as JSON and use it in VS Code directly</li>
+            <li>🎨 Adjust each color in real-time to see instant preview updates</li>
           </ul>
         </div>
       </div>
-    </section>
+    </div>
   </main>
 
-  <footer class="max-w-6xl mx-auto px-4 py-6 text-xs text-gray-500">
-    Built by Joel Mbuyi • Use the exported JSON in VS Code as a color theme
+  <!-- Footer -->
+  <footer class="border-t border-blue-900/30 glass-effect mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+        <p class="text-sm text-gray-400">Built with <span class="text-red-400">❤️</span> by Joel Mbuyi</p>
+        <div class="flex gap-4">
+          <a href="https://github.com/JoelMbuyi05" target="_blank" class="text-gray-400 hover:text-blue-400 transition-colors">
+            <i class="fab fa-github text-lg"></i>
+          </a>
+          <a href="https://linkedin.com/in/joelmbuyi05" target="_blank" class="text-gray-400 hover:text-blue-400 transition-colors">
+            <i class="fab fa-linkedin text-lg"></i>
+          </a>
+        </div>
+      </div>
+    </div>
   </footer>
 
   <script src="app.js"></script>
-</body>
-</html>
