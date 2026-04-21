@@ -80,6 +80,7 @@ This project improved your abilities in:
   * Add full keyboard shortcut support
 
 # ▶️ Running the Project
+
 No installation needed.
 
 1. Download the project folder
