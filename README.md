@@ -60,6 +60,7 @@ The VS Code Theme Generator is a web application that enables users to create, c
   * Writing cleaner JavaScript with reusable functions
 
 # 🚀 Overall Growth
+
 This project improved your abilities in:
   * Front-end thinking
   * Clean code structure
